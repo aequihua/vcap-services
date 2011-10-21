@@ -334,7 +334,7 @@ class VCAP::Services::Memcached::Node
       vm_pages = (@max_swap * 1024 * 1024 / 32).round # swap in bytes / size of page (32 bytes)
 
       config = @config_template.result(Kernel.binding)
-      config_path = File.join(dir, "memcached.conf")
+    #  config_path = File.join(dir, "memcached.conf")
 
       FileUtils.mkdir_p(dir)
       FileUtils.mkdir_p(data_dir)
@@ -342,10 +342,10 @@ class VCAP::Services::Memcached::Node
         FileUtils.cp(db_file, data_dir)
       end
       FileUtils.rm_f(log_file)
-      FileUtils.rm_f(config_path)
-      File.open(config_path, "w") {|f| f.write(config)}
+    #  FileUtils.rm_f(config_path)
+    #  File.open(config_path, "w") {|f| f.write(config)}
 
-      exec("#{@memcached_server_path} #{config_path}")
+      exec("#{@memcached_server_path} #{config}")
     end
   rescue => e
     raise MemcachedError.new(MemcachedError::MEMCACHED_START_INSTANCE_FAILED, instance.inspect)
