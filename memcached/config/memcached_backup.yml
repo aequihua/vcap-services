@@ -1,6 +1,6 @@
-service_name: redis
+service_name: memcached
 backup_base_dir: /mnt/appcloud
-service_base_dir: /var/vcap/services/redis/instances
+service_base_dir: /var/vcap/services/memcached/instances
 timeout: 600
 logging:
   level: debug
