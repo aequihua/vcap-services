@@ -5,6 +5,7 @@ require 'optparse'
 require 'logger'
 require 'logging'
 require 'yaml'
+require 'ruby-debug19'
 
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', '..', '..')
 require 'vcap/common'
@@ -65,6 +66,8 @@ class VCAP::Services::Base::NodeBin
     @logger = options[:logger]
 
     options = additional_config(options, config)
+    
+    debugger
 
     EM.error_handler do |e|
       @logger.fatal("#{e} #{e.backtrace.join("|")}")
