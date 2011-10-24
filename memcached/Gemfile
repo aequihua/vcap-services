@@ -12,8 +12,9 @@ gem "sinatra"
 gem "thin"
 gem "dalli"
 
-gem 'vcap_common', :require => ['vcap/common', 'vcap/component']
-gem 'vcap_logging', :require => ['vcap/logging']
+# gem 'vcap_common', :require => ['vcap/common', 'vcap/component']
+# gem 'vcap_logging', :require => ['vcap/logging']
+gem 'vcap_common', :path => '../../common'
 
 group :test do
   gem "rake"
