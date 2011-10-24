@@ -13,7 +13,7 @@ max_swap: 32
 node_id: memcached_node_1
 memcached_server_path: memcached-server
 port_range:
-  first:11211
+  first: 11211
   last: 30000
 migration_nfs: /mnt/appcloud
 # z_interval: 30
