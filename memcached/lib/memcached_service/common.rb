@@ -1,10 +1,10 @@
 # Copyright (c) 2009-2011 VMware, Inc.
 module VCAP
   module Services
-    module Redis
+    module Memcached
       module Common
         def service_name
-          "RaaS"
+          "MaaS"
         end
       end
     end

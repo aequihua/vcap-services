@@ -6,7 +6,7 @@ require "pp"
 
 require "datamapper"
 require "uuidtools"
-require "memcached"
+require "memcache"
 
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', '..', '..', 'base', 'lib')
 require 'base/node'
