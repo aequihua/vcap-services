@@ -32,4 +32,6 @@ class VCAP::Services::Memcached::NodeBin < VCAP::Services::Base::NodeBin
 
 end
 
+puts "Estoy por arrancar el memcached"
 VCAP::Services::Memcached::NodeBin.new.start
+puts "Ya invoque el arranque de memcached"
