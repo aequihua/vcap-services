@@ -309,6 +309,17 @@ class VCAP::Services::Memcached::Node
     raise MemcachedError.new(MemcachedError::MEMCACHED_FIND_INSTANCE_FAILED, name) if instance.nil?
     instance
   end
+  
+  def assemble_cmdline()
+    dir = File.join(@base_dir, instance.name)
+    config = @config_template.result(Kernel.binding)
+    config_path = File.join(dir, "memcached.conf")
+    FileUtils.rm_f(config_path)
+    File.open(config_path, "w") {|f| f.write(config)}
+    file = File.new(config_path, "r")
+    cmdline = config + " " + file.gets
+    cmdline
+  end
 
   def start_instance(instance, db_file = nil)
     @logger.debug("Starting: #{instance.inspect} on port #{instance.port}")
@@ -333,19 +344,14 @@ class VCAP::Services::Memcached::Node
       vm_max_memory = (memory * 0.7).round
       vm_pages = (@max_swap * 1024 * 1024 / 32).round # swap in bytes / size of page (32 bytes)
 
-      config = @config_template.result(Kernel.binding)
-    #  config_path = File.join(dir, "memcached.conf")
-
       FileUtils.mkdir_p(dir)
       FileUtils.mkdir_p(data_dir)
       if db_file
         FileUtils.cp(db_file, data_dir)
       end
       FileUtils.rm_f(log_file)
-    #  FileUtils.rm_f(config_path)
-    #  File.open(config_path, "w") {|f| f.write(config)}
 
-      exec("#{@memcached_server_path} #{config}")
+      exec("#{self.assemble_cmdline}")
     end
   rescue => e
     raise MemcachedError.new(MemcachedError::MEMCACHED_START_INSTANCE_FAILED, instance.inspect)
