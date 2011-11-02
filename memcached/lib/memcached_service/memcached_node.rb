@@ -318,7 +318,7 @@ class VCAP::Services::Memcached::Node
     File.open(config_path, "w") {|f| f.write(config)}
     file = File.new(config_path, "r")
     cmdline = config + " " + file.gets
-    @logger.warn("Service #{instance.name} to launch the following command: #{cmdline}")
+    puts "DEBUG: Service #{instance.name} to launch the following command: #{cmdline}"
     cmdline
   end
 
